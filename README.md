@@ -1,0 +1,4 @@
+# difference generator
+
+## gendiff -h
+

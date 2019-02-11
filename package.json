@@ -1,0 +1,44 @@
+{
+  "name": "gendiff-quasko",
+  "version": "0.0.1",
+  "description": "console difference generator",
+  "keywords": [
+    "difference generator",
+    "hexlet"
+  ],
+  "bin": {
+    "gendiff": "dist/bin/gendiff.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "test": "jest",
+    "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quasko/project-lvl2-s413.git"
+  },
+  "author": "Denis Pukhovskiy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quasko/project-lvl2-s413/issues"
+  },
+  "homepage": "https://github.com/quasko/project-lvl2-s413#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.12.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.14.0"
+  },
+  "dependencies": {
+    "commander": "^2.19.0"
+  }
+}
