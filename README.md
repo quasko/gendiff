@@ -4,3 +4,6 @@
 
 ## gendiff -h
 [![asciicast](https://asciinema.org/a/qEQDHzI334nUPdIsB75XqWcRL.svg)](https://asciinema.org/a/qEQDHzI334nUPdIsB75XqWcRL)
+
+## gendiff <file1.json> <file2.json>
+[![asciicast](https://asciinema.org/a/KvFP0cwAbCW7c2tYTUQlO1z1H.svg)](https://asciinema.org/a/KvFP0cwAbCW7c2tYTUQlO1z1H)

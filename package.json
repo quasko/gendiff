@@ -1,11 +1,12 @@
 {
   "name": "gendiff-quasko",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "console difference generator",
   "keywords": [
     "difference generator",
     "hexlet"
   ],
+  "main": "dist/index.js",
   "bin": {
     "gendiff": "dist/bin/gendiff.js"
   },
