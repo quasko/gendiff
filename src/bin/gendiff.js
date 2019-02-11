@@ -1,4 +1,4 @@
 #!/usr/bin/env node
-import genDiff from '..';
+import { program } from '..';
 
-genDiff.parse(process.argv);
+program.parse(process.argv);

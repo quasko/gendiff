@@ -4,5 +4,7 @@ start:
 	npx babel-node -- src/bin/gendiff.js
 publish:
 	npm publish
-make lint:
+lint:
 	npx eslint .
+test:
+	npm test
