@@ -7,3 +7,6 @@
 
 ## gendiff <file1.json> <file2.json>
 [![asciicast](https://asciinema.org/a/KvFP0cwAbCW7c2tYTUQlO1z1H.svg)](https://asciinema.org/a/KvFP0cwAbCW7c2tYTUQlO1z1H)
+
+## gendiff <file1.yml> <file2.yml>
+[![asciicast](https://asciinema.org/a/aVWFzVRtovr8P9sf2JbOOk76X.svg)](https://asciinema.org/a/aVWFzVRtovr8P9sf2JbOOk76X)
