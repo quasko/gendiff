@@ -8,7 +8,9 @@ const compareObjects = (obj1, obj2) => {
     add: key => `+ ${key}: ${obj2[key]}`,
     del: key => `- ${key}: ${obj1[key]}`,
   };
-  return Object.keys({ ...obj1, ...obj2 }).reduce((acc, key) => {
+
+  const keys = Object.keys({ ...obj1, ...obj2 });
+  return keys.reduce((acc, key) => {
     if (has(obj2, key)) {
       if (has(obj1, key)) {
         if (obj2[key] === obj1[key]) {
@@ -32,7 +34,7 @@ export const program = commander
   .description('Compares two configuration files and shows a difference.')
   .option('-V, --version', 'output the version number')
   .option('-f, --format [type]', 'Output format')
-  .arguments('<firstConfig> <secondConfig>')
+  // .arguments('<firstConfig> <secondConfig>')
   .action((firstConfig, secondConfig) => console.log(compareJSONFiles(firstConfig, secondConfig)));
 
 export default compareJSONFiles;
