@@ -10,3 +10,6 @@
 
 ## gendiff <file1.yml> <file2.yml>
 [![asciicast](https://asciinema.org/a/aVWFzVRtovr8P9sf2JbOOk76X.svg)](https://asciinema.org/a/aVWFzVRtovr8P9sf2JbOOk76X)
+
+## gendiff <file1.ini> <file2.ini>
+[![asciicast](https://asciinema.org/a/Jh6pDiOXJOMiKGfTww2kbyUyu.svg)](https://asciinema.org/a/Jh6pDiOXJOMiKGfTww2kbyUyu)
