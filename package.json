@@ -1,6 +1,6 @@
 {
   "name": "gendiff-quasko",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "console difference generator",
   "keywords": [
     "difference generator",
@@ -42,6 +42,7 @@
   },
   "dependencies": {
     "commander": "^2.19.0",
+    "ini": "^1.3.5",
     "js-yaml": "^3.12.1",
     "lodash": "^4.17.11"
   }

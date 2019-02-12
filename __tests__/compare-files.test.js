@@ -2,15 +2,7 @@ import fs from 'fs';
 import compareFiles from '../src';
 
 const filesDiff = fs.readFileSync('__tests__/__fixtures__/result', 'utf8');
+const testsDirPath = '__tests__/__fixtures__';
+const fileTypes = ['.json', '.yml', '.ini'];
 
-test('compare JSON Files', () => {
-  const jsonPathBefore = '__tests__/__fixtures__/before.json';
-  const jsonPathAfter = '__tests__/__fixtures__/after.json';
-  expect(compareFiles(jsonPathBefore, jsonPathAfter)).toBe(filesDiff);
-});
-
-test('compare YAML Files', () => {
-  const yamlPathBefore = '__tests__/__fixtures__/before.yml';
-  const yamlPathAfter = '__tests__/__fixtures__/after.yml';
-  expect(compareFiles(yamlPathBefore, yamlPathAfter)).toBe(filesDiff);
-});
+test.each(fileTypes)('compare %s files', type => expect(compareFiles(`${testsDirPath}/before${type}`, `${testsDirPath}/after${type}`)).toBe(filesDiff));
