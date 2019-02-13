@@ -10,18 +10,14 @@ const compareObjects = (obj1, obj2) => {
     deleted: key => `- ${key}: ${obj1[key]}`,
   };
   const keys = Object.keys({ ...obj1, ...obj2 });
-  const objectDiffs = keys.reduce((acc, key) => {
-    if (has(obj2, key)) {
-      if (has(obj1, key)) {
-        if (obj2[key] === obj1[key]) {
-          return [...acc, printDiff.equal(key)];
-        }
-        return [...acc, printDiff.added(key), printDiff.deleted(key)];
-      }
-      return [...acc, printDiff.added(key)];
+  const objectDiffs = keys.map((key) => {
+    if (has(obj1, key) && has(obj2, key)) {
+      return obj2[key] === obj1[key]
+        ? printDiff.equal(key)
+        : `${printDiff.added(key)}\n ${printDiff.deleted(key)}`;
     }
-    return [...acc, printDiff.deleted(key)];
-  }, '');
+    return has(obj2, key) ? printDiff.added(key) : printDiff.deleted(key);
+  });
   return `{\n ${objectDiffs.join('\n ')}\n}`;
 };
 
