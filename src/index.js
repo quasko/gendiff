@@ -1,22 +1,22 @@
 import fs from 'fs';
-import has from 'lodash/has';
+import _ from 'lodash';
 import { extname } from 'path';
 import parse from './parsers';
 
 const compareObjects = (obj1, obj2) => {
-  const printDiff = {
-    equal: key => `  ${key}: ${obj1[key]}`,
-    added: key => `+ ${key}: ${obj2[key]}`,
-    deleted: key => `- ${key}: ${obj1[key]}`,
+  const lineBuilders = {
+    buildEqual: key => `  ${key}: ${obj1[key]}`,
+    buildAdded: key => `+ ${key}: ${obj2[key]}`,
+    buildDeleted: key => `- ${key}: ${obj1[key]}`,
   };
-  const keys = Object.keys({ ...obj1, ...obj2 });
+  const keys = _.union(_.keys(obj1), _.keys(obj2));
   const objectDiffs = keys.map((key) => {
-    if (has(obj1, key) && has(obj2, key)) {
+    if (_.has(obj1, key) && _.has(obj2, key)) {
       return obj2[key] === obj1[key]
-        ? printDiff.equal(key)
-        : `${printDiff.added(key)}\n ${printDiff.deleted(key)}`;
+        ? lineBuilders.buildEqual(key)
+        : `${lineBuilders.buildAdded(key)}\n ${lineBuilders.buildDeleted(key)}`;
     }
-    return has(obj2, key) ? printDiff.added(key) : printDiff.deleted(key);
+    return _.has(obj2, key) ? lineBuilders.buildAdded(key) : lineBuilders.buildDeleted(key);
   });
   return `{\n ${objectDiffs.join('\n ')}\n}`;
 };
