@@ -5,7 +5,9 @@ import compareFiles from '..';
 commander
   .description('Compares two configuration files and shows a difference.')
   .option('-V, --version', 'output the version number')
-  .option('-f, --format [type]', 'Output format')
+  .option('-f, --format [type]', 'Output format', 'default')
   .arguments('<firstConfig> <secondConfig>')
-  .action((firstConfig, secondConfig) => console.log(compareFiles(firstConfig, secondConfig)))
+  .action((firstConfig, secondConfig) => {
+    console.log(compareFiles(firstConfig, secondConfig, commander.format));
+  })
   .parse(process.argv);
