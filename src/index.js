@@ -16,49 +16,46 @@ const buildAST = (object1, object2) => {
         return {
           key,
           children,
-          type: 'unchanged',
-          value: null,
+          type: 'nested',
         };
       }
 
       if (value1 === value2) {
         return {
           key,
-          children: [],
           type: 'unchanged',
-          value: value1,
+          oldValue: value2,
         };
       }
 
       return {
         key,
-        children: [],
         type: 'changed',
-        value: [value1, value2],
+        oldValue: value1,
+        newValue: value2,
+
       };
     }
     if (_.has(obj2, key)) {
       return {
         key,
-        children: [],
         type: 'added',
-        value: obj2[key],
+        newValue: obj2[key],
       };
     }
     return {
       key,
-      children: [],
       type: 'deleted',
-      value: obj1[key],
+      oldValue: obj1[key],
     };
   };
   return keys.map(key => (buildDiff(key, object1, object2)));
 };
 
-const compareFiles = (filePath1, filePath2, format = 'default') => {
+const compareFiles = (filePath1, filePath2, format = 'text') => {
   const obj1 = parse(fs.readFileSync(filePath1, 'utf8'), extname(filePath1));
   const obj2 = parse(fs.readFileSync(filePath2, 'utf8'), extname(filePath2));
-  const ast = _.flatten(buildAST(obj1, obj2));
+  const ast = buildAST(obj1, obj2);
   return render(ast, format);
 };
 
