@@ -69,7 +69,7 @@ const linePrefix = {
   deleted: '-',
 };
 
-const renderAST = (data, spaceCount) => {
+const renderAST = (data, spaceCount = 2) => {
   const indent = count => ' '.repeat(count);
   const buildLine = (prefix, key, value) => `${indent(spaceCount)}${prefix} ${key}: ${value}`;
 
@@ -96,7 +96,7 @@ const compareFiles = (filePath1, filePath2) => {
   const obj1 = parse(fs.readFileSync(filePath1, 'utf8'), extname(filePath1));
   const obj2 = parse(fs.readFileSync(filePath2, 'utf8'), extname(filePath2));
   const ast = _.flatten(buildAST(obj1, obj2));
-  const diff = renderAST(ast, 2);
+  const diff = renderAST(ast);
   return diff;
 };
 
