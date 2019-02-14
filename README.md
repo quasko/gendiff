@@ -13,3 +13,6 @@
 
 ## gendiff <file1.ini> <file2.ini>
 [![asciicast](https://asciinema.org/a/Jh6pDiOXJOMiKGfTww2kbyUyu.svg)](https://asciinema.org/a/Jh6pDiOXJOMiKGfTww2kbyUyu)
+
+## compare nested files
+[![asciicast](https://asciinema.org/a/gMJvvvhHB3j6HU61uvlPaPalI.svg)](https://asciinema.org/a/gMJvvvhHB3j6HU61uvlPaPalI)
