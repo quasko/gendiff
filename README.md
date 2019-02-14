@@ -16,3 +16,6 @@
 
 ## compare nested files
 [![asciicast](https://asciinema.org/a/gMJvvvhHB3j6HU61uvlPaPalI.svg)](https://asciinema.org/a/gMJvvvhHB3j6HU61uvlPaPalI)
+
+## gendiff --format plain <file1.ini> <file2.ini>
+[![asciicast](https://asciinema.org/a/oVUzf11oNwehLXcY9SwajeDAa.svg)](https://asciinema.org/a/oVUzf11oNwehLXcY9SwajeDAa)
