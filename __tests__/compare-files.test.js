@@ -2,10 +2,14 @@ import fs from 'fs';
 import compareFiles from '../src';
 
 const testsDirPath = '__tests__/__fixtures__';
-//const fileTypes = ['.json', '.yml', '.ini'];
-const fileTypes = ['.json'];
+const fileTypes = ['.json', '.yml', '.ini'];
 
-test.each(fileTypes)('compare %s files', (type) => {
-  const filesDiff = fs.readFileSync(`${testsDirPath}/r`, 'utf8');
-  expect(compareFiles(`${testsDirPath}/b${type}`, `${testsDirPath}/a${type}`)).toBe(filesDiff);
+test.each(fileTypes)('compare flat %s files', (type) => {
+  const filesDiff = fs.readFileSync(`${testsDirPath}/result-flat`, 'utf8');
+  expect(compareFiles(`${testsDirPath}/before-flat${type}`, `${testsDirPath}/after-flat${type}`)).toBe(filesDiff);
+});
+
+test.each(fileTypes)('compare nested %s files', (type) => {
+  const filesDiff = fs.readFileSync(`${testsDirPath}/result`, 'utf8');
+  expect(compareFiles(`${testsDirPath}/before${type}`, `${testsDirPath}/after${type}`)).toBe(filesDiff);
 });
