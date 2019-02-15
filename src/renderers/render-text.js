@@ -2,19 +2,19 @@ import _ from 'lodash';
 
 const stringify = (value, depth) => {
   const indentSize = 4;
-  const firstIndend = 4;
-  const spaceCount = depth * indentSize + firstIndend;
+  const firstIndent = 4;
+  const spaceCount = depth * indentSize + firstIndent;
   if (_.isObject(value)) {
     const result = Object.keys(value).map(key => `${' '.repeat(spaceCount)}${key}: ${value[key]}`);
-    return `{\n${result.join('\n')}\n${' '.repeat(spaceCount - firstIndend)}}`;
+    return `{\n${result.join('\n')}\n${' '.repeat(spaceCount - firstIndent)}}`;
   }
   return value.toString();
 };
 
 const renderText = (data, depth = 0) => {
   const indentSize = 4;
-  const firstIndend = 2;
-  const spaceCount = depth * indentSize + firstIndend;
+  const firstIndent = 2;
+  const spaceCount = depth * indentSize + firstIndent;
   const buildLine = (prefix, key, value) => `${' '.repeat(spaceCount)}${prefix} ${key}: ${value}`;
 
   const diffMap = {
@@ -26,7 +26,7 @@ const renderText = (data, depth = 0) => {
   };
 
   const diffs = data.map(item => diffMap[item.type](item));
-  return `{\n${diffs.join('\n')}\n${' '.repeat(spaceCount - firstIndend)}}`;
+  return `{\n${diffs.join('\n')}\n${' '.repeat(spaceCount - firstIndent)}}`;
 };
 
 export default renderText;
