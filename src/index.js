@@ -61,9 +61,11 @@ const buildAST = (object1, object2) => {
   });
 };
 
+const getFileType = filePath1 => extname(filePath1).slice(1);
+
 const compareFiles = (filePath1, filePath2, format = 'text') => {
-  const obj1 = parse(fs.readFileSync(filePath1, 'utf8'), extname(filePath1));
-  const obj2 = parse(fs.readFileSync(filePath2, 'utf8'), extname(filePath2));
+  const obj1 = parse(fs.readFileSync(filePath1, 'utf8'), getFileType(filePath1));
+  const obj2 = parse(fs.readFileSync(filePath2, 'utf8'), getFileType(filePath2));
   const ast = buildAST(obj1, obj2);
   return render(ast, format);
 };

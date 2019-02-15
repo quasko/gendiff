@@ -1,35 +1,25 @@
 import _ from 'lodash';
 
+const printFullKey = (parents, key) => (parents.length > 0 ? `${parents.join('.')}.${key}` : key);
+
+const printValue = value => `${_.isObject(value) ? '[complex value]' : value}`;
+
+const diffMap = {
+  changed: (item, parent) => `Property '${printFullKey(parent, item.key)}' was updated. From '${printValue(item.oldValue)}' to '${printValue(item.newValue)}'`,
+  added: (item, parent) => `Property '${printFullKey(parent, item.key)}' was added with value: '${printValue(item.newValue)}'`,
+  deleted: (item, parent) => `Property '${printFullKey(parent, item.key)}' was removed`,
+  unchanged: () => null,
+  nested: (item, parent, buildFunc) => _.flatten(buildFunc(item.children, [...parent, item.key])),
+};
+
 const renderPlain = (data) => {
-  const buildLine = ({
-    type,
-    key,
-    newValue,
-    oldValue,
-  }, parentKeys) => {
-    const buildAction = {
-      deleted: 'removed',
-      added: `added with value: '${_.isObject(newValue) ? '[complex value]' : newValue}'`,
-      changed: `was updated. From '${oldValue}' to '${newValue}'`,
-    };
-    const fullKey = parentKeys.length > 0 ? `${parentKeys.join('.')}.${key}` : key;
+  const buildDiff = (items, parent = []) => items.map(
+    item => diffMap[item.type](item, parent, buildDiff),
+  );
 
-    return `Property '${fullKey}' was ${buildAction[type]}\n`;
-  };
-
-  const buildDiff = (items, parent = []) => items.reduce((acc, item) => {
-    if (item.type === 'unchanged') {
-      return acc;
-    }
-
-    if (item.type !== 'nested') {
-      return acc + buildLine(item, parent);
-    }
-
-    return acc + buildDiff(item.children, [...parent, item.key]);
-  }, '');
-
-  return buildDiff(data);
+  return _.flatten(buildDiff(data))
+    .filter(item => item !== null)
+    .join('\n');
 };
 
 export default renderPlain;

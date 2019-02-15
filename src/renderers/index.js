@@ -1,5 +1,5 @@
-import renderText from './renderers/render-text';
-import renderPlain from './renderers/render-plain';
+import renderText from './render-text';
+import renderPlain from './render-plain';
 
 const render = {
   text: renderText,
