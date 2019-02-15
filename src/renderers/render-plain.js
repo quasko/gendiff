@@ -1,13 +1,13 @@
 import _ from 'lodash';
 
-const printFullKey = (parents, key) => (parents.length > 0 ? `${parents.join('.')}.${key}` : key);
+const getFullKey = (parents, key) => [...parents, key].join('.');
 
 const printValue = value => `${_.isObject(value) ? '[complex value]' : value}`;
 
 const diffMap = {
-  changed: (item, parent) => `Property '${printFullKey(parent, item.key)}' was updated. From '${printValue(item.oldValue)}' to '${printValue(item.newValue)}'`,
-  added: (item, parent) => `Property '${printFullKey(parent, item.key)}' was added with value: '${printValue(item.newValue)}'`,
-  deleted: (item, parent) => `Property '${printFullKey(parent, item.key)}' was removed`,
+  changed: (item, parent) => `Property '${getFullKey(parent, item.key)}' was updated. From '${printValue(item.oldValue)}' to '${printValue(item.newValue)}'`,
+  added: (item, parent) => `Property '${getFullKey(parent, item.key)}' was added with value: '${printValue(item.newValue)}'`,
+  deleted: (item, parent) => `Property '${getFullKey(parent, item.key)}' was removed`,
   unchanged: () => null,
   nested: (item, parent, buildFunc) => _.flatten(buildFunc(item.children, [...parent, item.key])),
 };
