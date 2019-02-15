@@ -14,7 +14,7 @@ const renderPlain = (data) => {
     };
     const fullKey = parentKeys.length > 0 ? `${parentKeys.join('.')}.${key}` : key;
 
-    return `Property '${fullKey}' was ${buildAction[type]}`;
+    return `Property '${fullKey}' was ${buildAction[type]}\n`;
   };
 
   const buildDiff = (items, parent = []) => items.reduce((acc, item) => {
@@ -23,13 +23,13 @@ const renderPlain = (data) => {
     }
 
     if (item.type !== 'nested') {
-      return [...acc, buildLine(item, parent)];
+      return acc + buildLine(item, parent);
     }
 
-    return [...acc, ...buildDiff(item.children, [...parent, item.key])];
+    return acc + buildDiff(item.children, [...parent, item.key]);
   }, '');
 
-  return buildDiff(data).join('\n');
+  return buildDiff(data);
 };
 
 export default renderPlain;

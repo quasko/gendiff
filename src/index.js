@@ -4,52 +4,61 @@ import { extname } from 'path';
 import parse from './parsers';
 import render from './renderers';
 
-const buildAST = (object1, object2) => {
-  const keys = _.union(_.keys(object1), _.keys(object2));
-  const buildDiff = (key, obj1, obj2) => {
-    if (_.has(obj1, key) && _.has(obj2, key)) {
-      const value1 = obj1[key];
-      const value2 = obj2[key];
-
-      if (_.isObject(value1) && _.isObject(value2)) {
-        const children = _.flatten(buildAST(value1, value2));
-        return {
-          key,
-          children,
-          type: 'nested',
-        };
-      }
-
-      if (value1 === value2) {
-        return {
-          key,
-          type: 'unchanged',
-          oldValue: value2,
-        };
-      }
-
+const nodeActions = [
+  {
+    check: (obj1, obj2, key) => (_.isObject(obj1[key]) && _.isObject(obj2[key])),
+    process: (key, oldValue, newValue, buildFunction) => {
+      const children = _.flatten(buildFunction(oldValue, newValue));
       return {
         key,
-        type: 'changed',
-        oldValue: value1,
-        newValue: value2,
-
+        type: 'nested',
+        children,
       };
-    }
-    if (_.has(obj2, key)) {
-      return {
-        key,
-        type: 'added',
-        newValue: obj2[key],
-      };
-    }
-    return {
+    },
+  },
+  {
+    check: (obj1, obj2, key) => (obj1[key] === obj2[key]),
+    process: (key, oldValue) => ({
+      key,
+      type: 'unchanged',
+      oldValue,
+    }),
+  },
+  {
+    check: (obj1, obj2, key) => (!_.has(obj1, key) && _.has(obj2, key)),
+    process: (key, oldValue, newValue) => ({
+      key,
+      type: 'added',
+      newValue,
+    }),
+  },
+  {
+    check: (obj1, obj2, key) => (_.has(obj1, key) && !_.has(obj2, key)),
+    process: (key, oldValue) => ({
       key,
       type: 'deleted',
-      oldValue: obj1[key],
-    };
-  };
-  return keys.map(key => (buildDiff(key, object1, object2)));
+      oldValue,
+    }),
+  },
+  {
+    check: (obj1, obj2, key) => (obj1[key] !== obj2[key]),
+    process: (key, oldValue, newValue) => ({
+      key,
+      type: 'changed',
+      oldValue,
+      newValue,
+    }),
+  },
+];
+
+const getNodeAction = (obj1, obj2, key) => nodeActions.find(({ check }) => check(obj1, obj2, key));
+
+const buildAST = (object1, object2) => {
+  const keys = _.union(_.keys(object1), _.keys(object2));
+  return keys.map((key) => {
+    const { process } = getNodeAction(object1, object2, key);
+    return process(key, object1[key], object2[key], buildAST);
+  });
 };
 
 const compareFiles = (filePath1, filePath2, format = 'text') => {
