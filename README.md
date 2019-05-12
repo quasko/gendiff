@@ -2,6 +2,21 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/1e7d8c75e510637cf344/maintainability)](https://codeclimate.com/github/quasko/project-lvl2-s413/maintainability)
 [![Build Status](https://travis-ci.org/quasko/project-lvl2-s413.svg?branch=master)](https://travis-ci.org/quasko/project-lvl2-s413)
 
+## Утилита для поиска отличий в конфигурационных файлах.
+
+Возможности утилиты:
+
+* Поддержка разных форматов  
+* Генерация отчета в виде plain text, pretty и json  
+
+Пример использования:  
+
+$ gendiff --format plain first-config.ini second-config.ini  
+Setting "common.setting2" deleted.  
+Setting "common.setting4" added with value "blah blah".  
+Setting "group1.baz" changed from "bas" to "bars".  
+Section "group2" deleted.  
+
 ## gendiff -h
 [![asciicast](https://asciinema.org/a/qEQDHzI334nUPdIsB75XqWcRL.svg)](https://asciinema.org/a/qEQDHzI334nUPdIsB75XqWcRL)
 
